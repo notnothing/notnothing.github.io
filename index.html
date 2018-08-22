@@ -19,47 +19,16 @@
     border: 1px white
     width: 700px
 }
-.container {
-    position: relative;
-    width: 30%;
+  #sr {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
 }
 
-.image {
-  opacity: 1;
-  display: block;
-  width: 50%;
-  height: auto;
-  transition: .5s ease;
-  backface-visibility: hidden;
-}
-
-.middle {
-  transition: .5s ease;
-  opacity: 0;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%)
-}
-
-.container:hover .image {
-  opacity: 0.3;
-}
-
-.container:hover .middle {
-  opacity: 1;
-}
-
-.text {
-  background-color: #000000;
-  color: white;
-  font-size: 14px;
-  text-align: left;
-  padding: 12px 24px;
-}
-a:hover, a:active {
-    background-color: white;
+#sr td, #sr th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    a: black;
 }
 </style>
 </head>
@@ -77,19 +46,12 @@ a:hover, a:active {
    </table>
 
 <h3>Sr^</h3>
-  <div class="container">
-  <img src="lavento.jpeg" class="image">
-  <div class="middle">
-    <div class="text"><p>La Vento</p><p>Autumn/Winter '18</p></div>
-  </div>
-</div>
+<table id="sr">
+  <tr>
+    <td><img src="lavento.jpeg" width="200px"></td>
+    <td><p><a href="lavento.html">La Vento</a></p><p>Autumn/Winter 2018</p></td>
+  </tr>
+</table>
   
-<h3>Missed Connections</h3>
-  <div class="container">
-  <img src="" class="image" style="width:100%">
-  <div class="middle">
-    <div class="text"></div>
-  </div>
-</div>
   </body>
 </html>
