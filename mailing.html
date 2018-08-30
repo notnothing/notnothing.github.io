@@ -1,0 +1,66 @@
+<!-- BEGIN: Signup Form Manual Code from Benchmark Email Ver 2.0 ------>
+
+<style type="text/css">
+.bmform_outer1087827{width:220px;} .bmform_inner1087827{border:1px solid #797a7b;} .bmform_head1087827{background-color:#d0d6d9; height:37px; } .bm_headetext1087827{color:#000000; font-family:Consolas; font-size:18px; padding:6px 10px 0 10px; font-weight:bold; } .bmform_body1087827{background-color:#f3efe7; color:#000000; font-family:Arial, Helvetica, sans-serif; font-size:12px; padding:12px; } .bmform_introtxt1087827{font-family:Courier; font-size:12px; padding-bottom:12px; } .bmform_frmtext1087827{padding: 5px 0px 3px 0px; display:block; float:none; text-align: left; text-decoration: none; width: auto; font-weight:bold; ; font-family:Trebuchet MS; font-size:12px; color:#000000} .bmform_frm1087827{color:#000000; display:block; float:none; font-family:Verdana,sans-serif; font-size:14px; font-style:normal; font-weight:normal; text-align:left; text-decoration:none; width:190px; padding:3px;} .bmform_button1087827{text-align:center; padding-top:15px;} .bmform_submit1087827{padding:3px 12px 3px 12px;} .bmform_footer1087827{}.footer_bdy1087827{}.footer_txt1087827{} #tdLogo1087827 img{margin-botton:10px; max-width:230px;}</style>
+<script type="text/javascript">
+function CheckField1087827(fldName, frm){ if ( frm[fldName].length ) { for ( var i = 0, l = frm[fldName].length; i < l; i++ ) {  if ( frm[fldName].type =='select-one' ) { if( frm[fldName][i].selected && i==0 && frm[fldName][i].value == '' ) { return false; }  if ( frm[fldName][i].selected ) { return true; } }  else { if ( frm[fldName][i].checked ) { return true; } }; } return false; } else { if ( frm[fldName].type == "checkbox" ) { return ( frm[fldName].checked ); } else if ( frm[fldName].type == "radio" ) { return ( frm[fldName].checked ); } else { frm[fldName].focus(); return (frm[fldName].value.length > 0); }} }
+function rmspaces(x) {var leftx = 0;var rightx = x.length -1;while ( x.charAt(leftx) == ' ') { leftx++; }while ( x.charAt(rightx) == ' ') { --rightx; }var q = x.substr(leftx,rightx-leftx + 1);if ( (leftx == x.length) && (rightx == -1) ) { q =''; } return(q); }
+function checkfield(data) {if (rmspaces(data) == ""){return false;}else {return true;}}
+function isemail(data) {var flag = false;if (  data.indexOf("@",0)  == -1 || data.indexOf("\\",0)  != -1 ||data.indexOf("/",0)  != -1 ||!checkfield(data) ||  data.indexOf(".",0)  == -1  ||  data.indexOf("@")  == 0 ||data.lastIndexOf(".") < data.lastIndexOf("@") ||data.lastIndexOf(".") == (data.length - 1)   ||data.lastIndexOf("@") !=   data.indexOf("@") ||data.indexOf(",",0)  != -1 ||data.indexOf(":",0)  != -1 ||data.indexOf(";",0)  != -1  ) {return flag;} else {var temp = rmspaces(data);if (temp.indexOf(' ',0) != -1) { flag = true; }var d3 = temp.lastIndexOf('.') + 4;var d4 = temp.substring(0,d3);var e2 = temp.length  -  temp.lastIndexOf('.')  - 1;var i1 = temp.indexOf('@');if (  (temp.charAt(i1+1) == '.') || ( e2 < 1 ) ) { flag = true; }return !flag;}}
+function CheckFieldD1087827(fldH, chkDD, chkMM, chkYY, reqd, frm){ var retVal = true; var dt = validDate1087827(chkDD, chkMM, chkYY, frm); var nDate = frm[chkMM].value  + " " + frm[chkDD].value + " " + frm[chkYY].value; if ( dt == null && reqd == 1 ) {	nDate = ""; retVal = false;	} else if ( (frm[chkDD].value != "" || frm[chkMM].value != "" || frm[chkYY].value != "") && dt == null) { retVal = false; nDate = "";} if ( retVal ) {frm[fldH].value = nDate;} return retVal; }
+function validDate1087827(chkDD, chkMM, chkYY, frm) {var objDate = null;	if ( frm[chkDD].value != "" && frm[chkMM].value != "" && frm[chkYY].value != "" ) {var mSeconds = (new Date(frm[chkYY].value - 0, frm[chkMM].selectedIndex - 1, frm[chkDD].value - 0)).getTime();var objDate = new Date();objDate.setTime(mSeconds);if (objDate.getFullYear() != frm[chkYY].value - 0 || objDate.getMonth()  != frm[chkMM].selectedIndex - 1  || objDate.getDate() != frm[chkDD].value - 0){objDate = null;}}return objDate;}
+function _checkSubmit1087827(frm){
+if ( !isemail(frm["fldEmail"].value) ) { 
+   alert("Please enter the  &nbsp; @");
+   return false;
+}
+
+if(isemail(frm["fldEmail"].value) && window && window.JB_TRACKER && typeof window.JB_TRACKER.jbSubmitForm === 'function') { 
+ window.JB_TRACKER.jbSubmitForm({ 
+ email: frm["fldEmail"].value, didSubmit: true 
+ }); 
+ }
+
+ return true; }
+</script>
+<div align="center">
+<form style="display:inline;" action="https://lb.benchmarkemail.com//code/lbform" method=post name="frmLB1087827" accept-charset="UTF-8" onsubmit="return _checkSubmit1087827(this);" >
+<input type=hidden name=successurl value="http://notnothing.ooo" />
+<input type=hidden name=errorurl value="https://lb.benchmarkemail.com//Code/Error" />
+<input type=hidden name=token value="mFcQnoBFKMRjNTrN%2FvMBUrJ25jqXIyRIxp%2BT2j6F%2BlDDNZ2eeD2C%2Fw%3D%3D" />
+<input type=hidden name=doubleoptin value="" />
+<div class=bmform_outer1087827 id=tblFormData1087827 style="width:220px;" >
+<div class=bmform_inner1087827>
+<div class=bmform_head1087827 id=tdHeader1087827>
+<div class=bm_headetext1087827></div></div>
+<div class=bmform_body1087827>
+<div class=bmform_introtxt1087827 id=tdIntro1087827 >
+
+</div>
+<div id=tblFieldData1087827 style='text-align:left;'>
+
+<div class=bmform_frmtext1087827>
+ &nbsp; @ <span style='color:#CC0000;font-size:125%;'> *</span> </div>
+<input type=text class=bmform_frm1087827 name=fldEmail maxlength=100 />
+
+<div class=bmform_frmtext1087827>
+ &nbsp;first</div>
+<input type=text class=bmform_frm1087827 name=fldfirstname maxlength=100 />
+
+<div class=bmform_frmtext1087827>
+ &nbsp;last</div>
+<input type=text class=bmform_frm1087827 name=fldlastname maxlength=100 />
+</div>
+
+<div class=bmform_button1087827><input type="submit" id="btnSubmit" value="&#8734;"  krydebug="1751" class=bmform_submit1087827 />
+</div></div>
+<div class=bmform_footer1087827><div class=footer_bdy1087827><div class=footer_txt1087827></div></div></div>
+</div></div>
+<table id="tblRequiredField1087827" width="220" border="0" cellspacing="0" cellpadding="0" ><tr><td align=right style='font-size:10px;'>
+* Required Field
+</td></tr></table>
+</form></div>
+<!-- BEGIN: Email Marketing By Benchmark Email ------><div align="center" style="padding-top:5px;font-family:Arial,Helvetica,sans-serif;font-size:10px;color:#999999;"><div align="center" style="padding-top:5px;font-family:Arial,Helvetica,sans-serif;font-size:10px;color:#999999;"><a href="//www.benchmarkemail.com/es" target="_new" style="text-decoration:none;font-family:Arial,Helvetica,sans-serif;font-size:10px;color:#999999;">Servicios de Email Marketing</a> por Benchmark</div></div><!-- END: Email Marketing By Benchmark Email ---------->
+
+<!-- END: Signup Form Manual Code from Benchmark Email Ver 2.0 ------>
+
