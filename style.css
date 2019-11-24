@@ -1,0 +1,91 @@
+body {
+  border: black;
+  border-style: solid;
+  border-width: 0 0px 0 200px;
+  margin: 0;
+  padding: 30px 50px 0 40px;
+  justify-content: left;
+}
+
+/* BASE TYPES */
+
+a {
+  font-family: inherit;
+  text-decoration: none;
+  color: black;
+}
+
+p, a {
+  font-size: 13px;
+  font-family: Arial, sans-serif;
+}
+
+.framed-link {
+  display: block;
+  color: white;
+  background: black;
+  padding: 5px;
+  width: max-content;
+  margin-right: 5px;
+}
+
+/*** STRUCTURE ***/
+
+#home {
+  display: flex;
+}
+
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  margin-right: 35px;
+}
+
+.left-panel .connect {
+  display: flex;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.left-panel .logo-wrap {
+  vertical-align: top;
+}
+
+.left-panel .logo-wrap img {
+  width: 245px;
+}
+
+.right-panel .listings {
+  display: flex;
+  flex-direction: column;
+}
+
+.right-panel .imprint {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.right-panel .imprint div {
+  display: flex;
+  flex-direction: column;
+}
+
+.right-panel .entry {
+  padding: 0 15px 10px 15px;
+}
+
+.right-panel .entry img {
+  width: 145px;
+  min-height: 218px;
+  background-color: lightgray;
+}
+
+.right-panel .entry .title {
+  margin-block-end: 0em;
+}
+
+.right-panel .entry .date {
+  margin-block-start: .5em;
+  margin-block-end: 1em;
+}
