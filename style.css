@@ -1,10 +1,7 @@
 body {
-  border: black;
-  border-style: solid;
-  border-width: 0 0px 0 200px;
+  border: white;
+  border-style: dashed;
   margin: 0;
-  padding: 30px 50px 0 40px;
-  justify-content: left;
 }
 
 /* BASE TYPES */
@@ -33,26 +30,57 @@ p, a {
 
 #home {
   display: flex;
+  justify-content: center;
+  margin: 45px 150px 25px 0;
 }
 
 .left-panel {
   display: flex;
   flex-direction: column;
-  margin-right: 35px;
+  justify-content: space-between;
+  align-items: flex-end;
+  max-height: 100vh
 }
 
-.left-panel .connect {
+.left-panel .top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 0 0 0 150px;
+}
+
+.left-panel .top .connect {
   display: flex;
   margin-bottom: 30px;
   text-align: left;
 }
 
-.left-panel .logo-wrap {
+.left-panel .top .logo-wrap {
   vertical-align: top;
 }
 
-.left-panel .logo-wrap img {
+.left-panel .top .logo-wrap img {
   width: 245px;
+}
+
+.left-panel .top .description {
+  margin-top: 18px;
+  width: 240px;
+  text-align: justify;
+  font-size: 15px;
+}
+
+.left-panel .bottom .futurepost-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.left-panel .bottom .futurepost {
+  max-width: 240px;
+}
+
+.right-panel {
+  margin-left: 7vh;
 }
 
 .right-panel .listings {
@@ -60,13 +88,13 @@ p, a {
   flex-direction: column;
 }
 
-.right-panel .imprint {
+.right-panel .row {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
 }
 
-.right-panel .imprint div {
+.right-panel .row div {
   display: flex;
   flex-direction: column;
 }
@@ -78,7 +106,17 @@ p, a {
 .right-panel .entry img {
   width: 145px;
   min-height: 218px;
-  background-color: slategray;
+  height: auto;
+}
+
+.right-panel .entry img.border {
+  padding: 1px;
+  border: 1px solid darkolivegreen;
+  box-sizing: border-box
+}
+
+.right-panel .entry img.contrast {
+  filter: contrast(120%);
 }
 
 .right-panel .entry .title {
