@@ -31,7 +31,7 @@ p, a {
 #home {
   display: flex;
   justify-content: center;
-  margin: 45px 150px 25px 0;
+  margin: 45px 150px 25px 150px;
 }
 
 .left-panel {
@@ -46,7 +46,6 @@ p, a {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  padding: 0 0 0 150px;
 }
 
 .left-panel .top .connect {
@@ -110,8 +109,7 @@ p, a {
 
 .right-panel .entry img {
   width: 145px;
-  min-height: 218px;
-  height: auto;
+  height: 218px;
 }
 
 .right-panel .entry img.border {

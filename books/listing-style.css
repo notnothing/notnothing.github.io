@@ -1,0 +1,8 @@
+table, p {
+    margin: 45px 150px 25px 150px;
+    font-family: arial, sans-serif;
+}
+
+p {
+    max-width: 350px
+}
