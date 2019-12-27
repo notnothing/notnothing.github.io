@@ -70,8 +70,7 @@ p, a {
 .left-panel .top .description {
   margin-top: 18px;
   width: 240px;
-  text-align: justify;
-  font-size: 15px !important;
+  text-align: left;
 }
 
 .left-panel .bottom .futurepost-wrap {
@@ -114,12 +113,16 @@ p, a {
 
 .right-panel .entry img.border {
   padding: 1px;
-  border: 1px solid darkolivegreen;
+  border: 1px solid purple;
   box-sizing: border-box
 }
 
-.right-panel .entry img.contrast {
+.right-panel .entry img.high-contrast {
   filter: contrast(120%);
+}
+
+.right-panel .entry img.low-contrast {
+  filter: contrast(80%);
 }
 
 .right-panel .entry .title {
