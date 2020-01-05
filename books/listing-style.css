@@ -1,8 +1,34 @@
-table, p {
-    margin: 45px 150px 25px 150px;
+#home {
+    display: flex;
     font-family: arial, sans-serif;
+    margin: 45px 150px 25px 150px;
 }
 
-p {
-    max-width: 350px
+a {
+    color: black;
+}
+
+td {
+    padding-right: 20px;
+    vertical-align: top;
+}
+
+.left-panel {
+    min-width: 350px;
+    max-width: 350px;
+    margin-right: 35px;
+}
+
+.right-panel {
+    font-size: 13px;
+    color: #717171;
+}
+
+.right-panel p {
+    margin-top: .5em;
+    margin-bottom: .5em;
+}
+
+.right-panel span {
+    font-size: 15px;
 }
