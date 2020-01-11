@@ -4,6 +4,10 @@
     margin: 45px 150px 25px 150px;
 }
 
+p {
+    font-size: 16px;
+}
+
 a {
     color: black;
 }
@@ -14,21 +18,50 @@ td {
 }
 
 .left-panel {
-    min-width: 350px;
-    max-width: 350px;
-    margin-right: 35px;
+    width: 25vw;
+    margin-right: 3vw;
+}
+
+.center-panel {
+    font-size: 13px;
+    color: #717171;
+    margin-right: 2vw;
+    width: 30vw;
+}
+
+.center-panel p {
+    margin-top: .5em;
+    margin-bottom: .5em;
+    font-size: 14px;
+}
+
+.center-panel span {
+    font-size: 15px;
 }
 
 .right-panel {
-    font-size: 13px;
-    color: #717171;
+    width: 5vw;
 }
 
-.right-panel p {
-    margin-top: .5em;
-    margin-bottom: .5em;
+.right-panel .tk {
+    color: black;
+    height: 20px;
+    position: absolute;
+    font-weight: 600;
+    top: 151px;
+    right: 4vw;
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
 
-.right-panel span {
-    font-size: 15px;
+.tk > a {
+    text-decoration: none;
+}
+
+.tk > a:hover {
+    text-decoration: underline;
 }
