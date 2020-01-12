@@ -12,14 +12,21 @@ a {
     color: black;
 }
 
+.disclaimer {
+    top: 30px;
+    font-size: 14px;
+    color: gray;
+    position: relative;
+}
+
 td {
     padding-right: 20px;
     vertical-align: top;
 }
 
 .left-panel {
-    width: 25vw;
-    margin-right: 3vw;
+    width: 23vw;
+    margin-right: 5vw;
 }
 
 .center-panel {
