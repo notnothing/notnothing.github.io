@@ -65,6 +65,7 @@ p, a {
 
 .left-panel .top .logo-wrap img {
   width: 245px;
+  height: auto;
 }
 
 .left-panel .top .description {
