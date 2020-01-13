@@ -81,7 +81,8 @@ p, a {
 
 .left-panel .bottom .futurepost {
   max-width: 240px;
-  height: auto;
+  height: 240px;
+  max-height: 240px;
 }
 
 .right-panel {
