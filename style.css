@@ -38,7 +38,7 @@ p, a {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-end;
+  align-items: flex-start;
   max-height: 100vh
 }
 
@@ -65,10 +65,11 @@ p, a {
 
 .left-panel .top .logo-wrap img {
   width: 245px;
+  height: auto;
 }
 
 .left-panel .top .description {
-  margin: 3vh 0;
+  margin: 1.5vh 0;
   width: 240px;
   text-align: left;
 }
@@ -80,6 +81,8 @@ p, a {
 
 .left-panel .bottom .futurepost {
   max-width: 240px;
+  height: 240px;
+  max-height: 240px;
 }
 
 .right-panel {
