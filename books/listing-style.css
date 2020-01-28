@@ -4,19 +4,22 @@
     margin: 45px 150px 25px 150px;
 }
 
-p {
-    font-size: 16px;
+p, table {
+    font-size: 15px;
 }
 
 a {
     color: black;
 }
 
-.disclaimer {
-    top: 30px;
-    font-size: 14px;
-    color: gray;
-    position: relative;
+.grey p {
+    color: #717171;
+    font-size: 13px !important;
+}
+
+.grey a {
+    color: #444444;
+    font-size: 13px !important;
 }
 
 td {
