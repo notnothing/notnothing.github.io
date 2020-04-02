@@ -1,7 +1,7 @@
 #home {
-    display: flex;
-    font-family: arial, sans-serif;
-    margin: 45px 150px 25px 150px;
+  display: flex;
+  font-family: arial, sans-serif;
+  margin: 6vh 16vw;
 }
 
 p, table {
@@ -28,15 +28,29 @@ td {
 }
 
 .left-panel {
-    width: 23vw;
-    margin-right: 5vw;
+  width: 23vw;
+  margin-right: 5vw;
+}
+
+.left-panel .listing-image {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-right: 15px;
+  border: 1px solid #717171;
+}
+
+.left-panel .listing-image img {
+  width: 70%;
+  height: auto;
+  padding: 15px;
 }
 
 .center-panel {
-    font-size: 13px;
-    color: #717171;
-    margin-right: 2vw;
-    width: 30vw;
+  font-size: 13px;
+  color: #717171;
+  margin-right: 2vw;
+  width: 30vw;
 }
 
 .center-panel p {

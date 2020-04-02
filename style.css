@@ -36,9 +36,13 @@ p, a {
 
 /*** STRUCTURE ***/
 
+#home-wrap {
+  margin: 6vh 16vw;
+}
+
 #home {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .banner {
@@ -52,10 +56,6 @@ p, a {
 .banner p {
   font-size: 80px;
   font-weight: 600;
-}
-
-#home-wrap {
-  margin: 4vh 10vw 6vh 10vw;
 }
 
 .left-panel {
