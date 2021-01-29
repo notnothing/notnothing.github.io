@@ -42,7 +42,6 @@ p, a {
 
 #home {
   display: flex;
-  justify-content: space-between;
 }
 
 .banner {
