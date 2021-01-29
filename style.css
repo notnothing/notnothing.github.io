@@ -131,12 +131,14 @@ p, a {
 }
 
 .right-panel .entry {
-  padding: 0 15px 10px 15px;
+  padding: 0 1vw 1.5vw 1vw;
 }
 
 .right-panel .entry img {
-  width: 145px;
-  height: 218px;
+  width: 8.5vw;
+  height: 12.78vw;
+  min-width: 145px;
+  min-height: 218px;
 }
 
 .right-panel .entry img.border {
