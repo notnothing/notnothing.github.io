@@ -116,16 +116,11 @@ p, a {
 
 .right-panel .listings {
   display: flex;
-  flex-direction: column;
-}
-
-.right-panel .row {
-  display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
-.right-panel .row div {
+.right-panel .listings div {
   display: flex;
   flex-direction: column;
 }
