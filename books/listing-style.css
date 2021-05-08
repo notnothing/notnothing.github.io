@@ -1,7 +1,11 @@
-#home {
+#publication {
   display: flex;
   font-family: arial, sans-serif;
   margin: 6vh 16vw;
+}
+
+.mobile-header {
+    display: none;
 }
 
 p, table {
@@ -14,12 +18,12 @@ a {
 
 .grey p {
     color: #717171;
-    font-size: 13px !important;
+    font-size: 13px;
 }
 
 .grey a {
     color: #444444;
-    font-size: 13px !important;
+    font-size: 13px;
 }
 
 td {
@@ -88,4 +92,33 @@ td {
 
 .tk > a:hover {
     text-decoration: underline;
+}
+
+@media only screen and (max-device-width: 480px) {
+    #publication {
+        margin: 5vw;
+    }
+    .mobile-header {
+        display: block;
+        margin-bottom: 54px;
+        font-weight: bold;
+        font-style: italic;
+    }
+    p, a, span, td, tr, ol, li,
+    .center-panel p, .center-panel span,
+    .center-panel p a, .grey p {
+        font-size: 28px !important;
+    }
+    .left-panel {
+        width: 35vw;
+    }
+    .left-panel table {
+        margin: 36px 0 54px;
+    }
+    .center-panel {
+        width: 40vw;
+    }
+    .right-panel {
+        display: none;
+    }
 }

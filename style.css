@@ -9,7 +9,7 @@
 body {
   border: white;
   border-style: dashed;
-  margin: 0;
+  margin: 0px;
 }
 
 /* BASE TYPES */
@@ -37,7 +37,7 @@ p, a {
 /*** STRUCTURE ***/
 
 #home-wrap {
-  margin: 6vh 16vw;
+  margin: 3vh 8vw 2vh;
 }
 
 #home {
@@ -79,7 +79,7 @@ p, a {
 
 .left-panel .connect .framed-link {
   flex: 1;
-  text-align: right;
+  text-align: left;
   font-family: "Krungthep", Arial, sans-serif;
   font-size: 12px;
 }
@@ -88,14 +88,11 @@ p, a {
   vertical-align: top;
 }
 
-.left-panel .top .logo-wrap img {
-  width: 245px;
-  height: auto;
-}
-
 .left-panel .top .description {
   margin: 1.5vh 0;
-  width: 240px;
+  width: 18vw;
+  max-width: 280px;
+  min-width: 200px;
   text-align: left;
 }
 
@@ -104,10 +101,14 @@ p, a {
   justify-content: center;
 }
 
-.left-panel .bottom .futurepost {
-  max-width: 240px;
-  height: 240px;
-  max-height: 240px;
+.left-panel .bottom .futurepost, 
+.left-panel .top .logo-wrap img {
+  width: 18vw;
+  height: 18vw;
+  max-width: 280px;
+  max-height: 280px;
+  min-width: 200px;
+  min-height: 200px;
 }
 
 .right-panel {
@@ -126,14 +127,16 @@ p, a {
 }
 
 .right-panel .entry {
-  padding: 0 1vw 1.5vw 1vw;
+  padding: 0 1.25vw 1.5vw;
 }
 
 .right-panel .entry img {
-  width: 8.5vw;
-  height: 12.78vw;
-  min-width: 145px;
-  min-height: 218px;
+  min-width: 119px;
+  width: 15.166vw;
+  max-width: 200px;
+  min-height: 178px;
+  height: 22vw;
+  max-height: 300px;
 }
 
 .right-panel .entry img.border {
@@ -150,13 +153,47 @@ p, a {
   filter: contrast(80%);
 }
 
+.right-panel .framed-link {
+  margin-right: 0px !important;
+}
+
 .right-panel .entry .title {
   margin-block-end: 0em;
+  width: 100%;
+  text-align: center;
 }
 
 .right-panel .entry .date {
   margin-block-start: .5em;
   margin-block-end: 1em;
+  min-width: 119px;
+  width: 12vw;
+  max-width: 200px;
+  text-align: center;
+}
+
+/* Tablet */
+@media only screen and (max-device-width: 900px) {
+  #home-wrap {
+    margin: 3vw 3vh;
+  }
+  p, a, span {
+    font-size: 32px;
+  }
+  .right-panel .entry img {
+    max-width: 100%;
+    max-height: 100%;
+    width: 290px;
+    height: 436px;
+  }
+  .right-panel .listings {
+    justify-content: center;
+  }
+  .entry > a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 /* Mobile */
@@ -166,6 +203,22 @@ p, a {
   }
   p, a, span {
     font-size: 32px;
+  }
+  .left-panel {
+    min-width: 35%;
+  }
+  .left-panel .top,
+  .left-panel .bottom {
+    width: 100%
+  }
+  .left-panel img,
+  .left-panel .description {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 300px !important;
+  }
+  .left-panel .connect .framed-link {
+    font-size: 20px;
   }
   .right-panel .entry img {
     max-width: 100%;
