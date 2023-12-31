@@ -139,9 +139,15 @@ p, a {
   max-height: 300px;
 }
 
-.right-panel .entry img.border {
+.right-panel .entry img.border-purple {
   padding: 1px;
   border: 1px solid purple;
+  box-sizing: border-box
+}
+
+.right-panel .entry img.border-black {
+  padding: 1px;
+  border: 1px solid black;
   box-sizing: border-box
 }
 
@@ -159,8 +165,10 @@ p, a {
 
 .right-panel .entry .title {
   margin-block-end: 0em;
-  width: 100%;
   text-align: center;
+  min-width: 109px;
+  width: calc(15.166vw - 10px);
+  max-width: 190px;
 }
 
 .right-panel .entry .date {
@@ -185,6 +193,10 @@ p, a {
     max-height: 100%;
     width: 290px;
     height: 436px;
+  }
+  .right-panel .entry .title, .right-panel .entry .date {
+    max-width: 100%;
+    width: 280px;
   }
   .right-panel .listings {
     justify-content: center;
@@ -225,6 +237,10 @@ p, a {
     max-height: 100%;
     width: 290px;
     height: 436px;
+  }
+  .right-panel .entry .title, .right-panel .entry .date {
+    max-width: 100%;
+    width: 280px;
   }
   .right-panel .listings {
     justify-content: center;
