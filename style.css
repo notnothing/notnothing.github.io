@@ -175,7 +175,7 @@ p, a {
   margin-block-start: .5em;
   margin-block-end: 1em;
   min-width: 119px;
-  width: 12vw;
+  width: 100%;
   max-width: 200px;
   text-align: center;
 }
