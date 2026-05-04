@@ -1,9 +1,9 @@
-@import url(//db.onlinewebfonts.com/c/736cf5b08b01082a3645e14038868e20?family=Krungthep);
+@import url(https://db.onlinewebfonts.com/c/736cf5b08b01082a3645e14038868e20?family=Krungthep);
 @font-face {
   font-family: "Krungthep";
-  src: url("//db.onlinewebfonts.com/t/736cf5b08b01082a3645e14038868e20.woff2") format("woff2"),
-    url("//db.onlinewebfonts.com/t/736cf5b08b01082a3645e14038868e20.woff") format("woff"),
-    url("//db.onlinewebfonts.com/t/736cf5b08b01082a3645e14038868e20.ttf") format("truetype"),
+  src: url("https://db.onlinewebfonts.com/t/736cf5b08b01082a3645e14038868e20.woff2") format("woff2"),
+    url("https://db.onlinewebfonts.com/t/736cf5b08b01082a3645e14038868e20.woff") format("woff"),
+    url("https://db.onlinewebfonts.com/t/736cf5b08b01082a3645e14038868e20.ttf") format("truetype");
 }
 
 body {
@@ -25,6 +25,12 @@ p, a {
   font-family: Arial, sans-serif;
 }
 
+span.title,
+span.date {
+  font-size: 13px;
+  font-family: Arial, sans-serif;
+}
+
 .framed-link {
   display: block;
   color: white;
@@ -32,6 +38,17 @@ p, a {
   padding: 5px;
   width: max-content;
   margin-right: 5px;
+}
+
+.plain-page {
+  padding: 100px;
+}
+
+.plain-page h1 {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  margin: 0 0 1em;
 }
 
 /*** STRUCTURE ***/
@@ -101,7 +118,7 @@ p, a {
   justify-content: center;
 }
 
-.left-panel .bottom .futurepost, 
+.left-panel .bottom .futurepost,
 .left-panel .top .logo-wrap img {
   width: 18vw;
   height: 18vw;
@@ -164,6 +181,7 @@ p, a {
 }
 
 .right-panel .entry .title {
+  margin-block-start: 1em;
   margin-block-end: 0em;
   text-align: center;
   min-width: 109px;
@@ -172,6 +190,7 @@ p, a {
 }
 
 .right-panel .entry .date {
+  display: block;
   margin-block-start: .5em;
   margin-block-end: 1em;
   min-width: 119px;
@@ -181,7 +200,7 @@ p, a {
 }
 
 /* Tablet */
-@media only screen and (max-device-width: 900px) {
+@media only screen and (max-width: 900px) {
   #home-wrap {
     margin: 3vw 3vh;
   }
@@ -209,7 +228,7 @@ p, a {
 }
 
 /* Mobile */
-@media only screen and (max-device-width: 480px) {
+@media only screen and (max-width: 480px) {
   #home-wrap {
     margin: 3vw 3vh;
   }
