@@ -50,6 +50,10 @@
     return wholeHours + "h " + pad(minutes) + "m";
   }
 
+  function formatAngle(degrees) {
+    return degrees.toFixed(1) + "deg";
+  }
+
   function createField(labelText, input, value) {
     var label = document.createElement("label");
     var labelSpan = document.createElement("span");
@@ -127,7 +131,9 @@
         "civil " + formatTime(result.civilDawn) + "/" + formatTime(result.civilDusk),
         "sunrise " + formatTime(result.sunrise),
         "sunset " + formatTime(result.sunset),
-        result.color,
+        "alt " + formatAngle(result.solarAltitude),
+        "zenith " + result.zenith,
+        "horizon " + result.horizon,
         result.timeZone,
         formatDuration(result.daylightHours) + " daylight"
       ].join(" / ");

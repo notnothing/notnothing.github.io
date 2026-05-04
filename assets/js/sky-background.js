@@ -48,38 +48,42 @@
     "Pacific/Honolulu": [21.31, -157.86]
   };
 
-  var PALETTES = {
+  var SKY_COLORS = {
+    nightZenith: [1, 3, 10],
+    nightHorizon: [4, 6, 18],
+    astronomicalZenith: [5, 12, 35],
+    astronomicalHorizon: [18, 24, 48],
+    nauticalZenith: [12, 34, 82],
+    nauticalHorizon: [55, 72, 116],
+    civilZenith: [52, 84, 145],
+    civilHorizon: [238, 143, 96],
+    lowSunZenith: [80, 144, 205],
+    lowSunHorizon: [255, 218, 150],
+    dayZenith: [48, 126, 205],
+    dayHorizon: [198, 224, 241],
+    highSunZenith: [43, 117, 196],
+    highSunHorizon: [207, 231, 245]
+  };
+
+  var STREETLIGHT_SKY = {
+    zenith: [18, 21, 28],
+    horizon: [255, 221, 132]
+  };
+
+  var CONTRAST_SCHEMES = {
     light: {
-      midnight: [205, 207, 211],
-      astral: [198, 208, 229],
-      nautical: [214, 224, 250],
-      violet: [226, 213, 255],
-      magenta: [255, 196, 225],
-      ember: [255, 114, 87],
-      amber: [255, 183, 92],
-      gold: [255, 225, 143],
-      day: [255, 253, 248],
-      dayWarm: [255, 249, 237],
-      dayCool: [235, 248, 255],
-      dayLate: [255, 250, 242],
-      blueDay: [238, 248, 255],
-      duskBlue: [217, 225, 255]
+      pageText: "#000000",
+      frameBg: "#000000",
+      frameText: "#ffffff",
+      purpleBorder: "purple",
+      logoFilter: "none"
     },
     dark: {
-      midnight: [1, 1, 5],
-      astral: [5, 7, 22],
-      nautical: [8, 13, 38],
-      violet: [20, 13, 55],
-      magenta: [56, 19, 66],
-      ember: [120, 35, 24],
-      amber: [111, 69, 14],
-      gold: [70, 59, 24],
-      day: [30, 42, 46],
-      dayWarm: [34, 41, 39],
-      dayCool: [23, 48, 64],
-      dayLate: [34, 42, 40],
-      blueDay: [22, 46, 62],
-      duskBlue: [8, 14, 34]
+      pageText: "#f1f1f1",
+      frameBg: "#f1f1f1",
+      frameText: "#050505",
+      purpleBorder: "#c08cff",
+      logoFilter: "invert(1)"
     }
   };
   var debugOptions = null;
@@ -93,6 +97,10 @@
     return t * t * (3 - 2 * t);
   }
 
+  function range(value, min, max) {
+    return (value - min) / (max - min);
+  }
+
   function mix(a, b, amount) {
     var t = smoothstep(amount);
 
@@ -103,27 +111,18 @@
     ];
   }
 
-  function blendStops(stops, position) {
-    var value = clamp(position, 0, 1);
-    var previous = stops[0];
-
-    for (var index = 1; index < stops.length; index += 1) {
-      var next = stops[index];
-
-      if (value <= next.at) {
-        return mix(previous.color, next.color, (value - previous.at) / (next.at - previous.at));
-      }
-
-      previous = next;
-    }
-
-    return previous.color;
-  }
-
   function toHex(color) {
     return "#" + color.map(function (channel) {
-      return channel.toString(16).padStart(2, "0");
+      return clamp(Math.round(channel), 0, 255).toString(16).padStart(2, "0");
     }).join("");
+  }
+
+  function scaleColor(color, amount) {
+    return [
+      Math.round(color[0] * amount),
+      Math.round(color[1] * amount),
+      Math.round(color[2] * amount)
+    ];
   }
 
   function getLocalParts(date, timeZone) {
@@ -274,95 +273,131 @@
       nauticalDusk: nautical.dusk,
       astronomicalDusk: astronomical.dusk,
       solarNoon: clamp(solarNoon * 60, 0, MINUTES_IN_DAY),
-      daylightHours: horizon.durationHours
+      solarNoonExact: solarNoon * 60,
+      daylightHours: horizon.durationHours,
+      declination: declination,
+      latitudeRad: latitudeRad
     };
   }
 
-  function chooseSkyColor(minutes, sunTimes, scheme) {
-    var palette = PALETTES[scheme] || PALETTES.light;
-    var astronomicalDawn = sunTimes.astronomicalDawn;
-    var nauticalDawn = sunTimes.nauticalDawn;
-    var civilDawn = sunTimes.civilDawn;
-    var sunrise = sunTimes.sunrise;
-    var sunset = sunTimes.sunset;
-    var civilDusk = sunTimes.civilDusk;
-    var nauticalDusk = sunTimes.nauticalDusk;
-    var astronomicalDusk = sunTimes.astronomicalDusk;
-    var solarNoon = sunTimes.solarNoon;
-    var morningGoldEnd = sunrise + Math.min(90, Math.max(45, (solarNoon - sunrise) * 0.35));
-    var eveningGoldStart = sunset - Math.min(90, Math.max(45, (sunset - solarNoon) * 0.35));
+  function getSolarAltitude(minutes, sunTimes) {
+    var hourAngle = ((minutes - sunTimes.solarNoonExact) / 4) * DEG_TO_RAD;
+    var altitude = Math.asin(
+      Math.sin(sunTimes.latitudeRad) * Math.sin(sunTimes.declination) +
+      Math.cos(sunTimes.latitudeRad) * Math.cos(sunTimes.declination) * Math.cos(hourAngle)
+    );
 
-    if (minutes < astronomicalDawn) {
-      return palette.midnight;
+    return altitude * RAD_TO_DEG;
+  }
+
+  function makeSky(zenith, horizon, solarAltitude, phase) {
+    return {
+      zenith: zenith,
+      horizon: horizon,
+      page: mix(zenith, horizon, 0.58),
+      solarAltitude: solarAltitude,
+      phase: phase
+    };
+  }
+
+  function chooseSkyColors(minutes, sunTimes) {
+    var solarAltitude = getSolarAltitude(minutes, sunTimes);
+    var zenith = SKY_COLORS.nightZenith;
+    var horizon = SKY_COLORS.nightHorizon;
+    var phase = "night";
+    var amount;
+
+    if (solarAltitude < -18) {
+      return makeSky(zenith, horizon, solarAltitude, phase);
     }
 
-    if (minutes < nauticalDawn) {
-      return mix(palette.midnight, palette.astral, (minutes - astronomicalDawn) / Math.max(nauticalDawn - astronomicalDawn, 1));
+    if (solarAltitude < -12) {
+      amount = range(solarAltitude, -18, -12);
+      zenith = mix(SKY_COLORS.nightZenith, SKY_COLORS.astronomicalZenith, amount);
+      horizon = mix(SKY_COLORS.nightHorizon, SKY_COLORS.astronomicalHorizon, amount);
+      return makeSky(zenith, horizon, solarAltitude, "astronomical");
     }
 
-    if (minutes < civilDawn) {
-      return blendStops([
-        { at: 0, color: palette.astral },
-        { at: 0.45, color: palette.nautical },
-        { at: 1, color: palette.violet }
-      ], (minutes - nauticalDawn) / Math.max(civilDawn - nauticalDawn, 1));
+    if (solarAltitude < -6) {
+      amount = range(solarAltitude, -12, -6);
+      zenith = mix(SKY_COLORS.astronomicalZenith, SKY_COLORS.nauticalZenith, amount);
+      horizon = mix(SKY_COLORS.astronomicalHorizon, SKY_COLORS.nauticalHorizon, amount);
+      return makeSky(zenith, horizon, solarAltitude, "nautical");
     }
 
-    if (minutes < sunrise) {
-      return blendStops([
-        { at: 0, color: palette.violet },
-        { at: 0.38, color: palette.magenta },
-        { at: 0.72, color: palette.amber },
-        { at: 1, color: palette.ember }
-      ], (minutes - civilDawn) / Math.max(sunrise - civilDawn, 1));
+    if (solarAltitude < -0.833) {
+      amount = range(solarAltitude, -6, -0.833);
+      zenith = mix(SKY_COLORS.nauticalZenith, SKY_COLORS.civilZenith, amount);
+      horizon = mix(SKY_COLORS.nauticalHorizon, SKY_COLORS.civilHorizon, amount);
+      return makeSky(zenith, horizon, solarAltitude, "civil");
     }
 
-    if (minutes < morningGoldEnd) {
-      return blendStops([
-        { at: 0, color: palette.ember },
-        { at: 0.22, color: palette.amber },
-        { at: 0.5, color: palette.gold },
-        { at: 1, color: palette.day }
-      ], (minutes - sunrise) / Math.max(morningGoldEnd - sunrise, 1));
+    if (solarAltitude < 4) {
+      amount = range(solarAltitude, -0.833, 4);
+      zenith = mix(SKY_COLORS.civilZenith, SKY_COLORS.lowSunZenith, amount);
+      horizon = mix(SKY_COLORS.civilHorizon, SKY_COLORS.lowSunHorizon, amount);
+      return makeSky(zenith, horizon, solarAltitude, "low-sun");
     }
 
-    if (minutes < eveningGoldStart) {
-      return blendStops([
-        { at: 0, color: palette.dayWarm },
-        { at: 0.24, color: palette.blueDay },
-        { at: 0.5, color: palette.dayCool },
-        { at: 0.76, color: palette.day },
-        { at: 1, color: palette.dayLate }
-      ], (minutes - morningGoldEnd) / Math.max(eveningGoldStart - morningGoldEnd, 1));
+    if (solarAltitude < 30) {
+      amount = range(solarAltitude, 4, 30);
+      zenith = mix(SKY_COLORS.lowSunZenith, SKY_COLORS.dayZenith, amount);
+      horizon = mix(SKY_COLORS.lowSunHorizon, SKY_COLORS.dayHorizon, amount);
+      return makeSky(zenith, horizon, solarAltitude, "day");
     }
 
-    if (minutes < sunset) {
-      return blendStops([
-        { at: 0, color: palette.day },
-        { at: 0.28, color: palette.gold },
-        { at: 0.55, color: palette.amber },
-        { at: 0.78, color: palette.ember },
-        { at: 1, color: palette.magenta }
-      ], (minutes - eveningGoldStart) / Math.max(sunset - eveningGoldStart, 1));
+    amount = range(solarAltitude, 30, 70);
+    zenith = mix(SKY_COLORS.dayZenith, SKY_COLORS.highSunZenith, amount);
+    horizon = mix(SKY_COLORS.dayHorizon, SKY_COLORS.highSunHorizon, amount);
+
+    return makeSky(zenith, horizon, solarAltitude, "high-sun");
+  }
+
+  function renderSkyForScheme(sky, scheme) {
+    var zenithScale = 1;
+    var horizonScale = 1;
+    var streetlightAmount;
+
+    if (scheme === "light") {
+      if (sky.solarAltitude < -12) {
+        streetlightAmount = 1;
+      } else if (sky.solarAltitude < -6) {
+        streetlightAmount = 0.78;
+      } else if (sky.solarAltitude < -0.833) {
+        streetlightAmount = 0.35;
+      } else {
+        streetlightAmount = 0;
+      }
+
+      return makeSky(
+        mix(sky.zenith, STREETLIGHT_SKY.zenith, streetlightAmount * 0.82),
+        mix(sky.horizon, STREETLIGHT_SKY.horizon, streetlightAmount),
+        sky.solarAltitude,
+        sky.phase
+      );
     }
 
-    if (minutes < civilDusk) {
-      return mix(palette.magenta, palette.violet, (minutes - sunset) / Math.max(civilDusk - sunset, 1));
+    if (scheme !== "dark") {
+      return sky;
     }
 
-    if (minutes < nauticalDusk) {
-      return blendStops([
-        { at: 0, color: palette.violet },
-        { at: 0.55, color: palette.duskBlue },
-        { at: 1, color: palette.nautical }
-      ], (minutes - civilDusk) / Math.max(nauticalDusk - civilDusk, 1));
+    if (sky.solarAltitude > 4) {
+      zenithScale = 0.26;
+      horizonScale = 0.3;
+    } else if (sky.solarAltitude > -6) {
+      zenithScale = 0.44;
+      horizonScale = 0.5;
+    } else if (sky.solarAltitude > -18) {
+      zenithScale = 0.75;
+      horizonScale = 0.8;
     }
 
-    if (minutes < astronomicalDusk) {
-      return mix(palette.nautical, palette.astral, (minutes - nauticalDusk) / Math.max(astronomicalDusk - nauticalDusk, 1));
-    }
-
-    return mix(palette.astral, palette.midnight, (minutes - astronomicalDusk) / Math.max(MINUTES_IN_DAY - astronomicalDusk, 1));
+    return makeSky(
+      scaleColor(sky.zenith, zenithScale),
+      scaleColor(sky.horizon, horizonScale),
+      sky.solarAltitude,
+      sky.phase
+    );
   }
 
   function getPreferredScheme(scheme) {
@@ -398,11 +433,15 @@
       ? settings.minutes
       : parts.hour * 60 + parts.minute + parts.second / 60;
     var scheme = getPreferredScheme(settings.scheme);
-    var color = chooseSkyColor(minutes, sunTimes, scheme);
+    var sky = renderSkyForScheme(chooseSkyColors(minutes, sunTimes), scheme);
 
     return {
-      color: toHex(color),
+      color: toHex(sky.page),
+      zenith: toHex(sky.zenith),
+      horizon: toHex(sky.horizon),
       scheme: scheme,
+      phase: sky.phase,
+      solarAltitude: sky.solarAltitude,
       timeZone: timeZone,
       dayOfYear: dayOfYear,
       minutes: minutes,
@@ -420,11 +459,28 @@
     };
   }
 
+  function applyContrastScheme(result) {
+    var colors = CONTRAST_SCHEMES[result.scheme] || CONTRAST_SCHEMES.light;
+    var root = document.documentElement;
+
+    root.style.colorScheme = result.scheme;
+    root.style.setProperty("--page-text", colors.pageText);
+    root.style.setProperty("--frame-bg", colors.frameBg);
+    root.style.setProperty("--frame-text", colors.frameText);
+    root.style.setProperty("--purple-border", colors.purpleBorder);
+    root.style.setProperty("--logo-filter", colors.logoFilter);
+  }
+
   function apply(options) {
     var result = getColor(options || debugOptions);
+    var root = document.documentElement;
 
-    document.documentElement.style.setProperty("--page-bg", result.color);
-    document.documentElement.dataset.skyPhase = result.scheme;
+    root.style.setProperty("--page-bg", result.color);
+    root.style.setProperty("--sky-zenith", result.zenith);
+    root.style.setProperty("--sky-horizon", result.horizon);
+    root.dataset.skyPhase = result.phase;
+    root.dataset.skyTone = result.scheme;
+    applyContrastScheme(result);
 
     return result;
   }
