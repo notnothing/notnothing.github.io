@@ -10,7 +10,6 @@
   color-scheme: light dark;
   --page-bg: #ffffff;
   --page-text: #000000;
-  --page-border: #ffffff;
   --frame-bg: #000000;
   --frame-text: #ffffff;
   --cover-border: #000000;
@@ -23,7 +22,6 @@
   :root {
     --page-bg: #050505;
     --page-text: #f1f1f1;
-    --page-border: transparent;
     --frame-bg: #f1f1f1;
     --frame-text: #050505;
     --cover-border: transparent;
@@ -35,10 +33,9 @@
 
 body {
   background-color: var(--page-bg);
-  border-color: var(--page-border);
-  border-style: dashed;
   color: var(--page-text);
   margin: 0px;
+  transition: background-color 900ms ease, color 200ms ease;
 }
 
 /* BASE TYPES */
@@ -82,6 +79,66 @@ span.date {
   font-family: Arial, sans-serif;
   font-size: 20px;
   font-weight: 400;
+}
+
+#sky-debug {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 10;
+  width: min(320px, calc(100vw - 32px));
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid var(--page-text);
+  background: var(--page-bg);
+  background: color-mix(in srgb, var(--page-bg) 88%, var(--page-text) 12%);
+  color: var(--page-text);
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
+
+#sky-debug strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+#sky-debug button,
+#sky-debug select,
+#sky-debug input,
+#sky-debug span,
+#sky-debug output {
+  font: inherit;
+}
+
+#sky-debug button {
+  border: 1px solid var(--page-text);
+  background: var(--frame-bg);
+  color: var(--frame-text);
+  padding: 4px 8px;
+}
+
+.sky-debug-field {
+  display: grid;
+  grid-template-columns: 42px 1fr 58px;
+  gap: 8px;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.sky-debug-field input,
+.sky-debug-field select {
+  min-width: 0;
+}
+
+.sky-debug-value {
+  text-align: right;
+}
+
+.sky-debug-meta {
+  margin: 10px 0;
+  font-size: 11px;
+  line-height: 1.35;
 }
 
 /*** STRUCTURE ***/

@@ -20,6 +20,7 @@
 body {
   background-color: var(--page-bg);
   color: var(--page-text);
+  transition: background-color 900ms ease, color 200ms ease;
 }
 
 #publication {
