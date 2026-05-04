@@ -50,7 +50,7 @@ a {
 }
 
 p, a {
-  font-size: 13px;
+  font-size: clamp(10px, 3.4vw, 13px);
   font-family: Arial, sans-serif;
 }
 
@@ -83,11 +83,12 @@ span.date {
 /*** STRUCTURE ***/
 
 #home-wrap {
-  margin: 5vh 8vw 0;
+  margin: clamp(12px, 5vh, 72px) clamp(16px, 8vw, 115px) 0;
 }
 
 #home {
   display: flex;
+  gap: clamp(14px, 7.5vw, 108px);
 }
 
 .banner {
@@ -105,29 +106,37 @@ span.date {
 
 .left-panel {
   display: flex;
+  flex: 0 0 clamp(96px, 18vw, 280px);
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  max-height: 100vh;
+  max-height: none;
+  min-width: 0;
 }
 
 .left-panel .top {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  width: 100%;
 }
 
 .left-panel .top .connect {
   display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
   margin-bottom: 30px;
   width: 100%
 }
 
 .left-panel .connect .framed-link {
-  flex: 1;
+  box-sizing: border-box;
+  flex: 1 1 92px;
+  margin-right: 0;
   text-align: left;
   font-family: "Krungthep", Arial, sans-serif;
-  font-size: 12px;
+  font-size: clamp(9px, 2.8vw, 12px);
+  width: auto;
 }
 
 .left-panel .top .logo-wrap {
@@ -136,9 +145,7 @@ span.date {
 
 .left-panel .top .description {
   margin: 1.5vh 0;
-  width: 18vw;
-  max-width: 280px;
-  min-width: 200px;
+  width: 100%;
   text-align: left;
 }
 
@@ -147,14 +154,15 @@ span.date {
   justify-content: center;
 }
 
+.left-panel .bottom {
+  width: 100%;
+}
+
 .left-panel .bottom .futurepost,
 .left-panel .top .logo-wrap img {
-  width: 18vw;
-  height: 18vw;
-  max-width: 280px;
-  max-height: 280px;
-  min-width: 200px;
-  min-height: 200px;
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .left-panel .top .logo-wrap img {
@@ -162,13 +170,23 @@ span.date {
 }
 
 .right-panel {
-  margin-left: 7.5vw;
+  container-type: inline-size;
+  flex: 1 1 auto;
+  margin-left: 0;
+  min-width: 0;
+  --book-min-width: min(100%, clamp(150px, 15.166vw, 200px));
 }
 
 .right-panel .listings {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  gap: clamp(18px, 2.5vw, 32px);
+  grid-template-columns: repeat(auto-fit, minmax(var(--book-min-width), 1fr));
+}
+
+@container (min-width: 896px) {
+  .right-panel .listings {
+    grid-template-columns: repeat(auto-fill, 200px);
+  }
 }
 
 .right-panel .listings div {
@@ -177,16 +195,22 @@ span.date {
 }
 
 .right-panel .entry {
-  padding: 0 1.25vw 1.5vw;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.entry > a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .right-panel .entry img {
-  min-width: 119px;
-  width: 15.166vw;
-  max-width: 200px;
-  min-height: 178px;
-  height: 22vw;
-  max-height: 300px;
+  aspect-ratio: 2 / 3;
+  display: block;
+  object-fit: fill;
+  width: 100%;
 }
 
 .right-panel .entry img.border-purple {
@@ -223,89 +247,13 @@ span.date {
   margin-block-start: 1em;
   margin-block-end: 0em;
   text-align: center;
-  min-width: 109px;
-  width: calc(15.166vw - 10px);
-  max-width: 190px;
+  width: calc(100% - 10px);
 }
 
 .right-panel .entry .date {
   display: block;
   margin-block-start: .5em;
   margin-block-end: 1em;
-  min-width: 119px;
   width: 100%;
-  max-width: 200px;
   text-align: center;
-}
-
-/* Tablet */
-@media only screen and (max-width: 900px) {
-  #home-wrap {
-    margin: 3vw 3vh;
-  }
-  p, a, span {
-    font-size: 32px;
-  }
-  .right-panel .entry img {
-    max-width: 100%;
-    max-height: 100%;
-    width: 290px;
-    height: 436px;
-  }
-  .right-panel .entry .title, .right-panel .entry .date {
-    max-width: 100%;
-    width: 280px;
-  }
-  .right-panel .listings {
-    justify-content: center;
-  }
-  .entry > a {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
-/* Mobile */
-@media only screen and (max-width: 480px) {
-  #home-wrap {
-    margin: 3vw 3vh;
-  }
-  p, a, span {
-    font-size: 32px;
-  }
-  .left-panel {
-    min-width: 35%;
-  }
-  .left-panel .top,
-  .left-panel .bottom {
-    width: 100%
-  }
-  .left-panel img,
-  .left-panel .description {
-    width: 100% !important;
-    height: auto !important;
-    max-width: 300px !important;
-  }
-  .left-panel .connect .framed-link {
-    font-size: 20px;
-  }
-  .right-panel .entry img {
-    max-width: 100%;
-    max-height: 100%;
-    width: 290px;
-    height: 436px;
-  }
-  .right-panel .entry .title, .right-panel .entry .date {
-    max-width: 100%;
-    width: 280px;
-  }
-  .right-panel .listings {
-    justify-content: center;
-  }
-  .entry > a {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
 }
