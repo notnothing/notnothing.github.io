@@ -50,7 +50,7 @@ a {
 }
 
 p, a {
-  font-size: clamp(10px, 3.4vw, 13px);
+  font-size: 14px;
   font-family: Arial, sans-serif;
 }
 
