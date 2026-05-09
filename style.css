@@ -9,36 +9,45 @@
 :root {
   color-scheme: light dark;
   --page-bg: #ffffff;
+  --sky-zenith: var(--page-bg);
+  --sky-horizon: var(--page-bg);
   --page-text: #000000;
-  --page-border: #ffffff;
   --frame-bg: #000000;
   --frame-text: #ffffff;
   --cover-border: #000000;
   --dark-cover-border: transparent;
   --purple-border: purple;
   --logo-filter: none;
+  --logo-blend-mode: darken;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --page-bg: #050505;
     --page-text: #f1f1f1;
-    --page-border: transparent;
     --frame-bg: #f1f1f1;
     --frame-text: #050505;
     --cover-border: transparent;
     --dark-cover-border: #f1f1f1;
     --purple-border: #c08cff;
     --logo-filter: invert(1);
+    --logo-blend-mode: lighten;
   }
 }
 
 body {
   background-color: var(--page-bg);
-  border-color: var(--page-border);
-  border-style: dashed;
+  background-image:
+    radial-gradient(ellipse 108% 72% at 52% -18%, var(--sky-zenith) 0%, transparent 66%),
+    radial-gradient(ellipse 90% 58% at 14% 112%, color-mix(in display-p3, var(--sky-horizon) 78%, var(--sky-zenith) 22%) 0%, transparent 60%),
+    radial-gradient(ellipse 78% 52% at 92% 104%, color-mix(in display-p3, var(--sky-horizon) 66%, var(--sky-zenith) 34%) 0%, transparent 54%),
+    linear-gradient(168deg, var(--sky-zenith) 0%, color-mix(in display-p3, var(--sky-zenith) 60%, var(--sky-horizon) 40%) 58%, var(--sky-horizon) 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   color: var(--page-text);
   margin: 0px;
+  min-height: 100vh;
+  transition: background-color 900ms ease, color 200ms ease;
 }
 
 /* BASE TYPES */
@@ -82,6 +91,66 @@ span.date {
   font-family: Arial, sans-serif;
   font-size: 20px;
   font-weight: 400;
+}
+
+#sky-debug {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 10;
+  width: min(320px, calc(100vw - 32px));
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid var(--page-text);
+  background: var(--page-bg);
+  background: color-mix(in srgb, var(--page-bg) 88%, var(--page-text) 12%);
+  color: var(--page-text);
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
+
+#sky-debug strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+#sky-debug button,
+#sky-debug select,
+#sky-debug input,
+#sky-debug span,
+#sky-debug output {
+  font: inherit;
+}
+
+#sky-debug button {
+  border: 1px solid var(--page-text);
+  background: var(--frame-bg);
+  color: var(--frame-text);
+  padding: 4px 8px;
+}
+
+.sky-debug-field {
+  display: grid;
+  grid-template-columns: 42px 1fr 58px;
+  gap: 8px;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.sky-debug-field input,
+.sky-debug-field select {
+  min-width: 0;
+}
+
+.sky-debug-value {
+  text-align: right;
+}
+
+.sky-debug-meta {
+  margin: 10px 0;
+  font-size: 11px;
+  line-height: 1.35;
 }
 
 /*** STRUCTURE ***/
@@ -144,6 +213,7 @@ span.date {
 }
 
 .left-panel .top .logo-wrap {
+  mix-blend-mode: var(--logo-blend-mode);
   vertical-align: top;
 }
 
@@ -170,6 +240,7 @@ span.date {
 }
 
 .left-panel .top .logo-wrap img {
+  display: block;
   filter: var(--logo-filter);
 }
 
