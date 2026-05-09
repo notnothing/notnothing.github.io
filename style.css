@@ -332,3 +332,15 @@ span.date {
   width: 100%;
   text-align: center;
 }
+
+.list {
+  list-style-type: lao;
+    list-style-position: inside;
+  padding-left: 0;
+}
+
+.list li {
+  margin: 0;
+  padding: 0;
+}
+
