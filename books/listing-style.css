@@ -111,22 +111,23 @@ td {
 }
 
 .right-panel {
+    position: relative;
     width: 5vw;
 }
 
 .right-panel .tk {
     color: var(--page-text);
-    height: 20px;
-    position: absolute;
     font-weight: 600;
-    top: 151px;
-    right: 4vw;
+    position: absolute;
+    top: 0px;
+    left: 50px;
+    width: 300px;
+    transform-origin: top left;
     transform: rotate(90deg);
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
     -o-transform: rotate(90deg);
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
 
 .tk > a {
