@@ -52,11 +52,12 @@ body {
 
 a {
   font-family: inherit;
+  font-size: inherit;
   text-decoration: none;
   color: var(--page-text);
 }
 
-p, a {
+p {
   font-size: 14px;
   font-family: Arial, sans-serif;
 }
@@ -77,6 +78,8 @@ span.date {
 }
 
 .plain-page {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
   padding: 40px;
   max-width: 480px;
 }

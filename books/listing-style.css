@@ -48,14 +48,17 @@ a {
     color: var(--page-text);
 }
 
-.grey p {
+.grey {
     color: var(--page-text);
     font-size: 13px;
 }
 
+.grey p {
+    font-size: inherit;
+}
+
 .grey a {
     color: var(--page-text);
-    font-size: 13px;
 }
 
 td {
@@ -198,8 +201,7 @@ td {
     .order-section table {
         font-size: 16px;
     }
-    .grey p,
-    .grey a {
+    .grey {
         font-size: 16px;
     }
     .right-panel {
