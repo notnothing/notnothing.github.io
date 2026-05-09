@@ -14,7 +14,6 @@
   --page-text: #000000;
   --frame-bg: #000000;
   --frame-text: #ffffff;
-  --cover-border: #000000;
   --dark-cover-border: transparent;
   --purple-border: purple;
   --logo-filter: none;
@@ -27,7 +26,6 @@
     --page-text: #f1f1f1;
     --frame-bg: #f1f1f1;
     --frame-text: #050505;
-    --cover-border: transparent;
     --dark-cover-border: #f1f1f1;
     --purple-border: #c08cff;
     --logo-filter: invert(1);
@@ -291,12 +289,6 @@ span.date {
 .right-panel .entry img.border-purple {
   padding: 1px;
   border: 1px solid var(--purple-border);
-  box-sizing: border-box
-}
-
-.right-panel .entry img.border-black {
-  padding: 1px;
-  border: 1px solid var(--cover-border);
   box-sizing: border-box
 }
 
