@@ -4,8 +4,6 @@
   --sky-zenith: var(--page-bg);
   --sky-horizon: var(--page-bg);
   --page-text: #000000;
-  --muted-text: #717171;
-  --muted-link: #444444;
   --cover-border: #717171;
 }
 
@@ -13,8 +11,6 @@
   :root {
     --page-bg: #050505;
     --page-text: #f1f1f1;
-    --muted-text: #a8a8a8;
-    --muted-link: #d0d0d0;
     --cover-border: #8a8a8a;
   }
 }
@@ -22,10 +18,10 @@
 body {
   background-color: var(--page-bg);
   background-image:
-    radial-gradient(ellipse 85% 64% at 18% 112%, color-mix(in srgb, var(--sky-horizon) 78%, #ffd16f 22%) 0%, transparent 58%),
-    radial-gradient(ellipse 70% 52% at 88% 96%, color-mix(in srgb, var(--sky-horizon) 68%, #fff1bc 32%) 0%, transparent 50%),
-    radial-gradient(ellipse 118% 80% at 52% -18%, color-mix(in srgb, var(--sky-zenith) 88%, #000000 12%) 0%, transparent 64%),
-    linear-gradient(168deg, var(--sky-zenith) 0%, color-mix(in srgb, var(--sky-zenith) 60%, var(--sky-horizon) 40%) 58%, var(--sky-horizon) 100%);
+    radial-gradient(ellipse 108% 72% at 52% -18%, var(--sky-zenith) 0%, transparent 66%),
+    radial-gradient(ellipse 90% 58% at 14% 112%, color-mix(in display-p3, var(--sky-horizon) 78%, var(--sky-zenith) 22%) 0%, transparent 60%),
+    radial-gradient(ellipse 78% 52% at 92% 104%, color-mix(in display-p3, var(--sky-horizon) 66%, var(--sky-zenith) 34%) 0%, transparent 54%),
+    linear-gradient(168deg, var(--sky-zenith) 0%, color-mix(in display-p3, var(--sky-zenith) 60%, var(--sky-horizon) 40%) 58%, var(--sky-horizon) 100%);
   background-attachment: fixed;
   background-repeat: no-repeat;
   color: var(--page-text);
@@ -53,12 +49,12 @@ a {
 }
 
 .grey p {
-    color: var(--muted-text);
+    color: var(--page-text);
     font-size: 13px;
 }
 
 .grey a {
-    color: var(--muted-link);
+    color: var(--page-text);
     font-size: 13px;
 }
 
@@ -88,7 +84,7 @@ td {
 
 .center-panel {
   font-size: 13px;
-  color: var(--muted-text);
+  color: var(--page-text);
   margin-right: 2vw;
   width: 30vw;
 }

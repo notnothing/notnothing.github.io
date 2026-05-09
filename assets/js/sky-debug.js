@@ -81,8 +81,6 @@
     var timeValue = document.createElement("output");
     var dayInput = document.createElement("input");
     var dayValue = document.createElement("output");
-    var schemeSelect = document.createElement("select");
-    var schemeValue = document.createElement("output");
     var meta = document.createElement("p");
     var nowButton = document.createElement("button");
 
@@ -101,30 +99,19 @@
     dayInput.step = "1";
     dayInput.value = String(getTodayDayOfYear());
 
-    ["auto", "light", "dark"].forEach(function (scheme) {
-      var option = document.createElement("option");
-
-      option.value = scheme;
-      option.textContent = scheme;
-      schemeSelect.appendChild(option);
-    });
-
     nowButton.type = "button";
     nowButton.textContent = "now";
     meta.className = "sky-debug-meta";
 
     function render() {
-      var scheme = schemeSelect.value === "auto" ? undefined : schemeSelect.value;
       var result = window.NotNothingSkyBackground.setDebugOptions({
         minutes: Number(timeInput.value),
         dayOfYear: Number(dayInput.value),
-        scheme: scheme,
         timeZone: timeZone
       });
 
       timeValue.value = formatTime(result.minutes);
       dayValue.value = formatDay(result.dayOfYear);
-      schemeValue.value = result.scheme;
       meta.textContent = [
         "astro " + formatTime(result.astronomicalDawn) + "/" + formatTime(result.astronomicalDusk),
         "nautical " + formatTime(result.nauticalDawn) + "/" + formatTime(result.nauticalDusk),
@@ -132,8 +119,9 @@
         "sunrise " + formatTime(result.sunrise),
         "sunset " + formatTime(result.sunset),
         "alt " + formatAngle(result.solarAltitude),
-        "zenith " + result.zenith,
-        "horizon " + result.horizon,
+        "zenith " + result.zenithHex,
+        "horizon " + result.horizonHex,
+        "tone " + result.scheme,
         result.timeZone,
         formatDuration(result.daylightHours) + " daylight"
       ].join(" / ");
@@ -142,11 +130,10 @@
     nowButton.addEventListener("click", function () {
       timeInput.value = String(getCurrentMinutes());
       dayInput.value = String(getTodayDayOfYear());
-      schemeSelect.value = "auto";
       render();
     });
 
-    [timeInput, dayInput, schemeSelect].forEach(function (input) {
+    [timeInput, dayInput].forEach(function (input) {
       input.addEventListener("input", render);
       input.addEventListener("change", render);
     });
@@ -154,7 +141,6 @@
     panel.appendChild(title);
     panel.appendChild(createField("time", timeInput, timeValue));
     panel.appendChild(createField("day", dayInput, dayValue));
-    panel.appendChild(createField("mode", schemeSelect, schemeValue));
     panel.appendChild(meta);
     panel.appendChild(nowButton);
     document.body.appendChild(panel);

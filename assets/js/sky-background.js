@@ -53,21 +53,16 @@
     nightHorizon: [4, 6, 18],
     astronomicalZenith: [5, 12, 35],
     astronomicalHorizon: [18, 24, 48],
-    nauticalZenith: [12, 34, 82],
-    nauticalHorizon: [55, 72, 116],
-    civilZenith: [52, 84, 145],
-    civilHorizon: [238, 143, 96],
-    lowSunZenith: [80, 144, 205],
-    lowSunHorizon: [255, 218, 150],
+    nauticalZenith: [16, 31, 96],
+    nauticalHorizon: [68, 70, 128],
+    civilZenith: [66, 76, 158],
+    civilHorizon: [255, 124, 84],
+    lowSunZenith: [74, 136, 210],
+    lowSunHorizon: [255, 205, 108],
     dayZenith: [48, 126, 205],
     dayHorizon: [198, 224, 241],
     highSunZenith: [43, 117, 196],
     highSunHorizon: [207, 231, 245]
-  };
-
-  var STREETLIGHT_SKY = {
-    zenith: [18, 21, 28],
-    horizon: [255, 221, 132]
   };
 
   var CONTRAST_SCHEMES = {
@@ -75,15 +70,21 @@
       pageText: "#000000",
       frameBg: "#000000",
       frameText: "#ffffff",
+      coverBorder: "#000000",
+      darkCoverBorder: "transparent",
       purpleBorder: "purple",
-      logoFilter: "none"
+      logoFilter: "none",
+      logoBlendMode: "darken"
     },
     dark: {
       pageText: "#f1f1f1",
       frameBg: "#f1f1f1",
       frameText: "#050505",
+      coverBorder: "transparent",
+      darkCoverBorder: "#f1f1f1",
       purpleBorder: "#c08cff",
-      logoFilter: "invert(1)"
+      logoFilter: "invert(1)",
+      logoBlendMode: "lighten"
     }
   };
   var debugOptions = null;
@@ -117,12 +118,10 @@
     }).join("");
   }
 
-  function scaleColor(color, amount) {
-    return [
-      Math.round(color[0] * amount),
-      Math.round(color[1] * amount),
-      Math.round(color[2] * amount)
-    ];
+  function toDisplayP3(color) {
+    return "color(display-p3 " + color.map(function (channel) {
+      return (clamp(channel, 0, 255) / 255).toFixed(4);
+    }).join(" ") + ")";
   }
 
   function getLocalParts(date, timeZone) {
@@ -353,63 +352,20 @@
     return makeSky(zenith, horizon, solarAltitude, "high-sun");
   }
 
-  function renderSkyForScheme(sky, scheme) {
-    var zenithScale = 1;
-    var horizonScale = 1;
-    var streetlightAmount;
+  function getRelativeLuminance(color) {
+    var channels = color.map(function (channel) {
+      var normalized = channel / 255;
 
-    if (scheme === "light") {
-      if (sky.solarAltitude < -12) {
-        streetlightAmount = 1;
-      } else if (sky.solarAltitude < -6) {
-        streetlightAmount = 0.78;
-      } else if (sky.solarAltitude < -0.833) {
-        streetlightAmount = 0.35;
-      } else {
-        streetlightAmount = 0;
-      }
+      return normalized <= 0.03928
+        ? normalized / 12.92
+        : Math.pow((normalized + 0.055) / 1.055, 2.4);
+    });
 
-      return makeSky(
-        mix(sky.zenith, STREETLIGHT_SKY.zenith, streetlightAmount * 0.82),
-        mix(sky.horizon, STREETLIGHT_SKY.horizon, streetlightAmount),
-        sky.solarAltitude,
-        sky.phase
-      );
-    }
-
-    if (scheme !== "dark") {
-      return sky;
-    }
-
-    if (sky.solarAltitude > 4) {
-      zenithScale = 0.26;
-      horizonScale = 0.3;
-    } else if (sky.solarAltitude > -6) {
-      zenithScale = 0.44;
-      horizonScale = 0.5;
-    } else if (sky.solarAltitude > -18) {
-      zenithScale = 0.75;
-      horizonScale = 0.8;
-    }
-
-    return makeSky(
-      scaleColor(sky.zenith, zenithScale),
-      scaleColor(sky.horizon, horizonScale),
-      sky.solarAltitude,
-      sky.phase
-    );
+    return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2];
   }
 
-  function getPreferredScheme(scheme) {
-    if (scheme === "light" || scheme === "dark") {
-      return scheme;
-    }
-
-    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
-    }
-
-    return "light";
+  function getReadableScheme(sky) {
+    return getRelativeLuminance(sky.page) > 0.34 ? "light" : "dark";
   }
 
   function getColor(options) {
@@ -432,13 +388,16 @@
     var minutes = typeof settings.minutes === "number"
       ? settings.minutes
       : parts.hour * 60 + parts.minute + parts.second / 60;
-    var scheme = getPreferredScheme(settings.scheme);
-    var sky = renderSkyForScheme(chooseSkyColors(minutes, sunTimes), scheme);
+    var sky = chooseSkyColors(minutes, sunTimes);
+    var scheme = getReadableScheme(sky);
 
     return {
-      color: toHex(sky.page),
-      zenith: toHex(sky.zenith),
-      horizon: toHex(sky.horizon),
+      color: toDisplayP3(sky.page),
+      colorHex: toHex(sky.page),
+      zenith: toDisplayP3(sky.zenith),
+      zenithHex: toHex(sky.zenith),
+      horizon: toDisplayP3(sky.horizon),
+      horizonHex: toHex(sky.horizon),
       scheme: scheme,
       phase: sky.phase,
       solarAltitude: sky.solarAltitude,
@@ -467,8 +426,11 @@
     root.style.setProperty("--page-text", colors.pageText);
     root.style.setProperty("--frame-bg", colors.frameBg);
     root.style.setProperty("--frame-text", colors.frameText);
+    root.style.setProperty("--cover-border", colors.coverBorder);
+    root.style.setProperty("--dark-cover-border", colors.darkCoverBorder);
     root.style.setProperty("--purple-border", colors.purpleBorder);
     root.style.setProperty("--logo-filter", colors.logoFilter);
+    root.style.setProperty("--logo-blend-mode", colors.logoBlendMode);
   }
 
   function apply(options) {

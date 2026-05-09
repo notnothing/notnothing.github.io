@@ -18,6 +18,7 @@
   --dark-cover-border: transparent;
   --purple-border: purple;
   --logo-filter: none;
+  --logo-blend-mode: darken;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -30,16 +31,17 @@
     --dark-cover-border: #f1f1f1;
     --purple-border: #c08cff;
     --logo-filter: invert(1);
+    --logo-blend-mode: lighten;
   }
 }
 
 body {
   background-color: var(--page-bg);
   background-image:
-    radial-gradient(ellipse 85% 64% at 18% 112%, color-mix(in srgb, var(--sky-horizon) 78%, #ffd16f 22%) 0%, transparent 58%),
-    radial-gradient(ellipse 70% 52% at 88% 96%, color-mix(in srgb, var(--sky-horizon) 68%, #fff1bc 32%) 0%, transparent 50%),
-    radial-gradient(ellipse 118% 80% at 52% -18%, color-mix(in srgb, var(--sky-zenith) 88%, #000000 12%) 0%, transparent 64%),
-    linear-gradient(168deg, var(--sky-zenith) 0%, color-mix(in srgb, var(--sky-zenith) 60%, var(--sky-horizon) 40%) 58%, var(--sky-horizon) 100%);
+    radial-gradient(ellipse 108% 72% at 52% -18%, var(--sky-zenith) 0%, transparent 66%),
+    radial-gradient(ellipse 90% 58% at 14% 112%, color-mix(in display-p3, var(--sky-horizon) 78%, var(--sky-zenith) 22%) 0%, transparent 60%),
+    radial-gradient(ellipse 78% 52% at 92% 104%, color-mix(in display-p3, var(--sky-horizon) 66%, var(--sky-zenith) 34%) 0%, transparent 54%),
+    linear-gradient(168deg, var(--sky-zenith) 0%, color-mix(in display-p3, var(--sky-zenith) 60%, var(--sky-horizon) 40%) 58%, var(--sky-horizon) 100%);
   background-attachment: fixed;
   background-repeat: no-repeat;
   color: var(--page-text);
@@ -211,6 +213,7 @@ span.date {
 }
 
 .left-panel .top .logo-wrap {
+  mix-blend-mode: var(--logo-blend-mode);
   vertical-align: top;
 }
 
@@ -237,6 +240,7 @@ span.date {
 }
 
 .left-panel .top .logo-wrap img {
+  display: block;
   filter: var(--logo-filter);
 }
 
