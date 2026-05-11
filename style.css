@@ -244,7 +244,7 @@ span.date {
   -webkit-text-fill-color: transparent;
 }
 
-.left-panel .top .logo-wrap {
+.logo-wrap {
   mix-blend-mode: var(--logo-blend-mode);
   vertical-align: top;
 }
@@ -264,15 +264,16 @@ span.date {
   width: 100%;
 }
 
-.left-panel .bottom .futurepost,
-.left-panel .top .logo-wrap img {
+.left-panel .bottom .futurepost {
   display: block;
   width: 100%;
   height: auto;
 }
 
-.left-panel .top .logo-wrap img {
+.logo-wrap img {
   display: block;
+  width: 100%;
+  height: auto;
   filter: var(--logo-filter);
 }
 
