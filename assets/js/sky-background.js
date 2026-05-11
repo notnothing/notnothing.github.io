@@ -437,9 +437,9 @@
     var result = getColor(options || debugOptions);
     var root = document.documentElement;
 
-    root.style.setProperty("--page-bg", result.color);
-    root.style.setProperty("--sky-zenith", result.zenith);
-    root.style.setProperty("--sky-horizon", result.horizon);
+    root.style.setProperty("--page-bg", result.colorHex);
+    root.style.setProperty("--sky-zenith", result.zenithHex);
+    root.style.setProperty("--sky-horizon", result.horizonHex);
     root.dataset.skyPhase = result.phase;
     root.dataset.skyTone = result.scheme;
     applyContrastScheme(result);

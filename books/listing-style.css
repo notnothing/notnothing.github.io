@@ -26,9 +26,9 @@ body::before {
   background-color: var(--page-bg);
   background-image:
     radial-gradient(ellipse 108% 72% at 52% -18%, var(--sky-zenith) 0%, transparent 66%),
-    radial-gradient(ellipse 90% 58% at 14% 112%, color-mix(in display-p3, var(--sky-horizon) 78%, var(--sky-zenith) 22%) 0%, transparent 60%),
-    radial-gradient(ellipse 78% 52% at 92% 104%, color-mix(in display-p3, var(--sky-horizon) 66%, var(--sky-zenith) 34%) 0%, transparent 54%),
-    linear-gradient(168deg, var(--sky-zenith) 0%, color-mix(in display-p3, var(--sky-zenith) 60%, var(--sky-horizon) 40%) 58%, var(--sky-horizon) 100%);
+    radial-gradient(ellipse 90% 58% at 14% 112%, color-mix(in srgb, var(--sky-horizon) 78%, var(--sky-zenith) 22%) 0%, transparent 60%),
+    radial-gradient(ellipse 78% 52% at 92% 104%, color-mix(in srgb, var(--sky-horizon) 66%, var(--sky-zenith) 34%) 0%, transparent 54%),
+    linear-gradient(168deg, var(--sky-zenith) 0%, color-mix(in srgb, var(--sky-zenith) 60%, var(--sky-horizon) 40%) 58%, var(--sky-horizon) 100%);
   background-repeat: no-repeat;
   content: "";
   inset: 0;
