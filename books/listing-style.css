@@ -118,8 +118,10 @@ td {
 }
 
 .right-panel {
+    order: -1;
     position: relative;
     width: 5vw;
+    margin-right: 3vw;
 }
 
 .right-panel .tk {
@@ -127,14 +129,14 @@ td {
     font-weight: 600;
     position: absolute;
     top: 0px;
-    left: 50px;
-    width: 300px;
-    transform-origin: top left;
-    transform: rotate(90deg);
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
+    right: 0;
+    white-space: nowrap;
+    transform-origin: top right;
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
 }
 
 .tk > a {
