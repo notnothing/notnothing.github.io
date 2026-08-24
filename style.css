@@ -1,7 +1,8 @@
 @import url(https://db.onlinewebfonts.com/c/736cf5b08b01082a3645e14038868e20?family=Krungthep);
 @font-face {
   font-family: "Krungthep";
-  src: url("https://db.onlinewebfonts.com/t/736cf5b08b01082a3645e14038868e20.woff2") format("woff2"),
+  src:
+    url("https://db.onlinewebfonts.com/t/736cf5b08b01082a3645e14038868e20.woff2") format("woff2"),
     url("https://db.onlinewebfonts.com/t/736cf5b08b01082a3645e14038868e20.woff") format("woff"),
     url("https://db.onlinewebfonts.com/t/736cf5b08b01082a3645e14038868e20.ttf") format("truetype");
 }
@@ -49,7 +50,8 @@ a {
   color: var(--page-text);
 }
 
-p, a {
+p,
+a {
   font-size: 13px;
   font-family: Arial, sans-serif;
 }
@@ -120,7 +122,7 @@ span.date {
 .left-panel .top .connect {
   display: flex;
   margin-bottom: 30px;
-  width: 100%
+  width: 100%;
 }
 
 .left-panel .connect .framed-link {
@@ -192,19 +194,19 @@ span.date {
 .right-panel .entry img.border-purple {
   padding: 1px;
   border: 1px solid var(--purple-border);
-  box-sizing: border-box
+  box-sizing: border-box;
 }
 
 .right-panel .entry img.border-black {
   padding: 1px;
   border: 1px solid var(--cover-border);
-  box-sizing: border-box
+  box-sizing: border-box;
 }
 
 .right-panel .entry img.border-dark {
   padding: 1px;
   border: 1px solid var(--dark-cover-border);
-  box-sizing: border-box
+  box-sizing: border-box;
 }
 
 .right-panel .entry img.high-contrast {
@@ -230,7 +232,7 @@ span.date {
 
 .right-panel .entry .date {
   display: block;
-  margin-block-start: .5em;
+  margin-block-start: 0.5em;
   margin-block-end: 1em;
   min-width: 119px;
   width: 100%;
@@ -243,7 +245,9 @@ span.date {
   #home-wrap {
     margin: 3vw 3vh;
   }
-  p, a, span {
+  p,
+  a,
+  span {
     font-size: 32px;
   }
   .right-panel .entry img {
@@ -252,7 +256,8 @@ span.date {
     width: 290px;
     height: 436px;
   }
-  .right-panel .entry .title, .right-panel .entry .date {
+  .right-panel .entry .title,
+  .right-panel .entry .date {
     max-width: 100%;
     width: 280px;
   }
@@ -271,7 +276,9 @@ span.date {
   #home-wrap {
     margin: 3vw 3vh;
   }
-  p, a, span {
+  p,
+  a,
+  span {
     font-size: 32px;
   }
   .left-panel {
@@ -279,7 +286,7 @@ span.date {
   }
   .left-panel .top,
   .left-panel .bottom {
-    width: 100%
+    width: 100%;
   }
   .left-panel img,
   .left-panel .description {
@@ -296,7 +303,8 @@ span.date {
     width: 290px;
     height: 436px;
   }
-  .right-panel .entry .title, .right-panel .entry .date {
+  .right-panel .entry .title,
+  .right-panel .entry .date {
     max-width: 100%;
     width: 280px;
   }

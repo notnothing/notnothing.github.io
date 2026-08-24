@@ -1,0 +1,34 @@
+{
+  "name": "notnothing-static-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Validation tooling for the Not Nothing static website.",
+  "type": "commonjs",
+  "scripts": {
+    "format": "oxfmt --write \"**/*.{html,css,md,json,yml,yaml,js,mjs,cjs,ts,tsx,jsx}\" --ignore-path .oxfmtignore --no-error-on-unmatched-pattern",
+    "format:check": "oxfmt --check \"**/*.{html,css,md,json,yml,yaml,js,mjs,cjs,ts,tsx,jsx}\" --ignore-path .oxfmtignore --no-error-on-unmatched-pattern",
+    "lint": "bun run lint:html && bun run lint:css && bun run lint:md",
+    "lint:css": "stylelint \"*.css\" \"books/*.css\"",
+    "lint:html": "html-validate \"*.html\" \"books/*.html\" \"marketplace/*.html\"",
+    "lint:links": "linkinator http://127.0.0.1:4173 --recurse --check-css --check-fragments --timeout 20000 --retry-errors --retry-errors-count 2 --status-code \"403:warn\" --status-code \"429:warn\" --skip \"^mailto:\" --skip \"^https://forms\\\\.gle/\" --skip \"^https://gc\\\\.zgo\\\\.at/\" --skip \"^https://db\\\\.onlinewebfonts\\\\.com/\"",
+    "lint:md": "markdownlint-cli2 \"*.md\"",
+    "serve:local": "http-server . -a 127.0.0.1 -p 4173 -c-1 --silent",
+    "test": "bun run validate",
+    "validate": "bun run validate:static && bun run validate:served",
+    "validate:a11y": "bun scripts/validate-a11y.mjs",
+    "validate:served": "start-server-and-test \"bun run serve:local\" http://127.0.0.1:4173 \"bun run lint:links && bun run validate:a11y\"",
+    "validate:static": "bun run format:check && bun run lint"
+  },
+  "devDependencies": {
+    "html-validate": "^10.15.0",
+    "http-server": "^14.1.1",
+    "linkinator": "^7.6.1",
+    "markdownlint-cli2": "^0.22.1",
+    "oxfmt": "^0.47.0",
+    "pa11y": "^9.1.1",
+    "start-server-and-test": "^3.0.2",
+    "stylelint": "^17.10.0",
+    "stylelint-config-standard": "^40.0.0"
+  },
+  "packageManager": "bun@1.3.13"
+}
